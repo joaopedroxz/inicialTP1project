@@ -1,0 +1,85 @@
+#include <iostream>
+#include <stdexcept>
+using namespace std;
+
+class Data {
+private:
+    int dia;
+    int mes;
+    int ano;
+public:
+    void setDia(int d) {
+        if (d < 1 || d > 31)
+            throw invalid_argument("Dia invalido.");
+        dia = d;
+    }
+
+    void setMes(int m) {
+        if (m < 1 || m > 12)
+            throw invalid_argument("Mes invalido.");
+        mes = m;
+    }
+
+    void setAno(int a) {
+        if (a < 2000 || a > 2100)
+            throw invalid_argument("Ano invalido.");
+        ano = a;
+    }
+
+    int getDia() const {
+        return dia;
+    }
+
+    int getMes() const {
+        return mes;
+    }
+
+    int getAno() const {
+        return ano;
+    }
+
+    void setData(int d, int m, int a) {
+        setDia(d);
+        setMes(m);
+        setAno(a);
+    }
+
+    void mostrarData() const {
+        cout << dia << "-" << mes << "-" << ano << endl;
+    }
+};
+
+class Estado {
+private:
+    string estado;
+public:
+    // método que espera uma string que não será modificada
+    void setEstado(const string& newEstado) {
+        if(newEstado != "Previsto" && newEstado != "Liquidado" && newEstado != "Inadimplente"){
+            throw invalid_argument("Estado invalido.");
+         } else estado = newEstado;
+    }
+    // método para retornar o estado informado
+    string getEstado() const {
+        return estado;
+    }
+    void mostrarEstado()const{
+        cout << "Estado: " << estado << endl;
+    }
+
+
+};
+// testezin de uso da parada
+int main() {
+    Data data;
+    Estado estado;
+    try {
+        estado.setEstado("Liquidado");
+        data.setData(29, 05, 2005);
+        data.mostrarData();
+        estado.mostrarEstado();
+    } catch (invalid_argument &excecao) {
+        cout << "Erro: " << excecao.what() << endl;
+    }
+    return 0;
+}
